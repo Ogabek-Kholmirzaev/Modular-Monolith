@@ -10,6 +10,14 @@ public static class CatalogModule
     {
         //add services to DI container
 
+        services.AddDbContext<CatalogDbContext>(options =>
+        {
+            var connectionString = configuration.GetConnectionString("Database")
+                ?? throw new ArgumentNullException("Database connection string is null");
+
+            options.UseNpgsql(connectionString);
+        });
+
         return services;
     }
 
