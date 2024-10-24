@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Data;
 
 namespace Catalog;
 
@@ -24,6 +25,8 @@ public static class CatalogModule
     public static IApplicationBuilder UseCatalogModule(this IApplicationBuilder app)
     {
         //configure the http request pipeline
+
+        app.UseMigration<CatalogDbContext>();
 
         return app;
     }
