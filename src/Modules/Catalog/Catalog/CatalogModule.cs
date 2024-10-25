@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Data.Interceptors;
 
 namespace Catalog;
 
@@ -16,6 +17,7 @@ public static class CatalogModule
                 ?? throw new ArgumentNullException("Database connection string is null");
 
             options.UseNpgsql(connectionString);
+            options.AddInterceptors(new AuditableEntityInterceptor());
         });
 
         services.AddScoped<IDataSeeder, CatalogDataSeeder>();
