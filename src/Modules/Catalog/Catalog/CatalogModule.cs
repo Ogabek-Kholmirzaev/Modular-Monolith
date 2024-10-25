@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Shared.Data.Interceptors;
 
 namespace Catalog;
@@ -22,7 +23,7 @@ public static class CatalogModule
                 ?? throw new ArgumentNullException("Database connection string is null");
 
             options.UseNpgsql(connectionString);
-            options.AddInterceptors();
+            options.AddInterceptors(serviceProvider.GetServices<ISaveChangesInterceptor>());
         });
 
         services.AddScoped<IDataSeeder, CatalogDataSeeder>();
