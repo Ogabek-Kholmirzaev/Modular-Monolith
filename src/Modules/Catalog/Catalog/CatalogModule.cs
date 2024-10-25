@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Data.Interceptors;
@@ -11,13 +12,17 @@ public static class CatalogModule
     {
         //add services to DI container
 
-        services.AddDbContext<CatalogDbContext>(options =>
+        services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+
+        services.AddDbContext<CatalogDbContext>((serviceProvider, options) =>
         {
             var connectionString = configuration.GetConnectionString("Database")
                 ?? throw new ArgumentNullException("Database connection string is null");
 
             options.UseNpgsql(connectionString);
-            options.AddInterceptors(new AuditableEntityInterceptor());
+            options.AddInterceptors();
         });
 
         services.AddScoped<IDataSeeder, CatalogDataSeeder>();
