@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Catalog.Products.Features;
+namespace Catalog.Products.Features.CreateProduct;
 
 public record CreateProductCommand(
     string Name,
