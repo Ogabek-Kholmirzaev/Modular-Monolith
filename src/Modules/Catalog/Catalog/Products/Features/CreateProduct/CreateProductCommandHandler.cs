@@ -1,17 +1,32 @@
-﻿using Catalog.Products.Dtos;
-using Shared.CQRS;
-
-namespace Catalog.Products.Features.CreateProduct;
+﻿namespace Catalog.Products.Features.CreateProduct;
 
 public record CreateProductCommand(ProductDto Product) : ICommand<CreateProductResult>;
 
 public record CreateProductResult(Guid Id);
 
-public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, CreateProductResult>
+public class CreateProductCommandHandler(CatalogDbContext dbContext)
+    : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
-    public Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
+    public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
-        //TODO: need to implement business logic to create a new product
-        throw new NotImplementedException();
+        var product = CreateNewProduct(command.Product);
+
+        dbContext.Products.Add(product);
+        await dbContext.SaveChangesAsync();
+
+        return new CreateProductResult(product.Id);
+    }
+
+    private Product CreateNewProduct(ProductDto productDto)
+    {
+        var product = Product.Create(
+            Guid.NewGuid(),
+            productDto.Name,
+            productDto.Category,
+            productDto.Description,
+            productDto.ImageFile,
+            productDto.Price);
+
+        return product;
     }
 }
