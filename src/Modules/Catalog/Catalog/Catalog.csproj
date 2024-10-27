@@ -15,7 +15,6 @@
     <Folder Include="Products\Features\GetProductById\" />
     <Folder Include="Products\Features\GetProductByCategory\" />
     <Folder Include="Products\Features\DeleteProduct\" />
-    <Folder Include="Products\Features\UpdateProduct\" />
   </ItemGroup>
 
 </Project>

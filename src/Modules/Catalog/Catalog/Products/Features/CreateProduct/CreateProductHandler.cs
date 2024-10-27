@@ -12,7 +12,7 @@ public class CreateProductHandler(CatalogDbContext dbContext)
         var product = CreateNewProduct(command.Product);
 
         dbContext.Products.Add(product);
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync(cancellationToken);
 
         return new CreateProductResult(product.Id);
     }
