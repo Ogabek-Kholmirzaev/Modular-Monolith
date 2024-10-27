@@ -4,7 +4,7 @@ public record CreateProductCommand(ProductDto Product) : ICommand<CreateProductR
 
 public record CreateProductResult(Guid Id);
 
-public class CreateProductCommandHandler(CatalogDbContext dbContext)
+public class CreateProductHandler(CatalogDbContext dbContext)
     : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
