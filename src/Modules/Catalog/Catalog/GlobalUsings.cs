@@ -10,3 +10,6 @@ global using Shared.Data.Seed;
 global using Catalog.Products.Dtos;
 global using Shared.CQRS;
 global using Mapster;
+global using Catalog.Products.Events;
+global using MediatR;
+global using Microsoft.Extensions.Logging;
