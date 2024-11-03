@@ -1,4 +1,5 @@
-﻿
+﻿using Catalog.Products.Exceptions;
+
 namespace Catalog.Products.Features.GetProductById;
 
 public record GetProductByIdQuery(Guid Id) : IQuery<GetProductByIdResult>;
@@ -13,7 +14,7 @@ public class GetProductByIdHandler(CatalogDbContext dbContext)
         var product = await dbContext.Products
             .AsNoTracking()
             .SingleOrDefaultAsync(product => product.Id == query.Id, cancellationToken)
-            ?? throw new Exception($"Product not found: {query.Id}");
+            ?? throw new ProductNotFoundException(query.Id);
 
         var productDto = product.Adapt<ProductDto>();
 

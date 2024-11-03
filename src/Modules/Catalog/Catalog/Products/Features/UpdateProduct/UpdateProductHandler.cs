@@ -1,5 +1,7 @@
 ﻿
 
+using Catalog.Products.Exceptions;
+
 namespace Catalog.Products.Features.UpdateProduct;
 
 public record UpdateProductCommand(ProductDto Product) : ICommand<UpdateProductResult>;
@@ -23,7 +25,7 @@ public class UpdateProductHandler(CatalogDbContext dbContext)
     {
         var product =
             await dbContext.Products.FindAsync([command.Product.Id], cancellationToken)
-            ?? throw new Exception($"Product not found: {command.Product.Id}");
+            ?? throw new ProductNotFoundException(command.Product.Id);
 
         UpdateProductWithNewValues(product, command.Product);
 
