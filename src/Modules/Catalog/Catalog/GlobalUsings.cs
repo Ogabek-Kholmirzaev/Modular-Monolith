@@ -19,3 +19,4 @@ global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Routing;
 global using FluentValidation;
 global using Shared.Exceptions;
+global using Catalog.Products.Exceptions;
