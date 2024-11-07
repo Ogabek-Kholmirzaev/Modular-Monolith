@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Basket\Dtos\" />
     <Folder Include="Basket\EventHandlers\" />
     <Folder Include="Basket\Exceptions\" />
     <Folder Include="Basket\Features\GetBasket\" />
