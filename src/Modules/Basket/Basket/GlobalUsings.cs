@@ -4,3 +4,6 @@ global using Basket.Basket.Models;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Basket.Data;
+global using Basket.Basket.Dtos;
+global using FluentValidation;
+global using Shared.CQRS;

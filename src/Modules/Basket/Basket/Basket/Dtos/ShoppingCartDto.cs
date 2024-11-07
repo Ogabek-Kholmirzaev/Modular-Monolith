@@ -2,5 +2,5 @@
 
 public record ShoppingCartDto(
     Guid Id,
-    string Username,
+    string UserName,
     List<ShoppingCartItemDto> Items);
