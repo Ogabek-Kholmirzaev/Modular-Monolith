@@ -10,4 +10,17 @@
     <ProjectReference Include="..\..\..\Shared\Shared\Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Basket\Dtos\" />
+    <Folder Include="Basket\EventHandlers\" />
+    <Folder Include="Basket\Exceptions\" />
+    <Folder Include="Basket\Features\GetBasket\" />
+    <Folder Include="Basket\Features\CreateBasket\" />
+    <Folder Include="Basket\Features\DeleteBasket\" />
+    <Folder Include="Basket\Features\AddItemIntoBasket\" />
+    <Folder Include="Basket\Features\CheckoutBasket\" />
+    <Folder Include="Basket\Features\UpdateItemPriceInBasket\" />
+    <Folder Include="Basket\Features\RemoveItemFromBasket\" />
+  </ItemGroup>
+
 </Project>
