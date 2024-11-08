@@ -12,9 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Basket\EventHandlers\" />
-    <Folder Include="Basket\Exceptions\" />
     <Folder Include="Basket\Features\GetBasket\" />
-    <Folder Include="Basket\Features\DeleteBasket\" />
     <Folder Include="Basket\Features\AddItemIntoBasket\" />
     <Folder Include="Basket\Features\CheckoutBasket\" />
     <Folder Include="Basket\Features\UpdateItemPriceInBasket\" />
