@@ -3,7 +3,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration));
 
 //add services to the container
-builder.Services.AddCarterWithAssemblies(typeof(CatalogModule).Assembly);
+builder.Services.AddCarterWithAssemblies(typeof(CatalogModule).Assembly, typeof(BasketModule).Assembly);
 
 builder.Services
     .AddBasketModule(builder.Configuration)
