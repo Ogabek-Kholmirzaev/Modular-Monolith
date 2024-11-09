@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <Folder Include="Basket\EventHandlers\" />
-    <Folder Include="Basket\Features\AddItemIntoBasket\" />
     <Folder Include="Basket\Features\CheckoutBasket\" />
     <Folder Include="Basket\Features\UpdateItemPriceInBasket\" />
     <Folder Include="Basket\Features\RemoveItemFromBasket\" />
