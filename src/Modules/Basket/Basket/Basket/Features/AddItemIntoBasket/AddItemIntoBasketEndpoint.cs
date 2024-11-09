@@ -17,6 +17,11 @@ public class AddItemIntoBasketEndpoint : ICarterModule
                 var response = result.Adapt<AddItemIntoBasketResponse>();
 
                 return Results.Created($"/basket/{response.Id}", response);
-            });
+            })
+            .Produces<AddItemIntoBasketResponse>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .ProducesProblem(StatusCodes.Status404NotFound)
+            .WithSummary("Add Item Into Basket")
+            .WithDescription("Add Item Into Basket");
     }
 }
