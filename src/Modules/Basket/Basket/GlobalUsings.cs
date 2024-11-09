@@ -9,3 +9,4 @@ global using FluentValidation;
 global using Shared.CQRS;
 global using Basket.Basket.Exceptions;
 global using Shared.Exceptions;
+global using Mapster;
