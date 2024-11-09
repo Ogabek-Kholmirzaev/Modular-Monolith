@@ -8,15 +8,7 @@ var catalogAssembly = typeof(CatalogModule).Assembly;
 var basketAssembly = typeof(BasketModule).Assembly;
 
 builder.Services.AddCarterWithAssemblies(catalogAssembly, basketAssembly);
-
-builder.Services.AddMediatR(config =>
-{
-    config.RegisterServicesFromAssemblies(catalogAssembly, basketAssembly);
-    config.AddOpenBehavior(typeof(ValidationBehavior<,>));
-    config.AddOpenBehavior(typeof(LoggingBehavior<,>));
-});
-
-builder.Services.AddValidatorsFromAssemblies([catalogAssembly, basketAssembly]);
+builder.Services.AddMediatRWithAssemblies(catalogAssembly, basketAssembly);
 
 builder.Services
     .AddBasketModule(builder.Configuration)
