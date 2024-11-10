@@ -5,20 +5,17 @@ public record RemoveItemFromBasketCommand(string UserName, Guid ProductId)
 
 public record RemoveItemFromBasketResult(Guid Id);
 
-public class RemoveItemFromBasketHandler(BasketDbContext dbContext)
+public class RemoveItemFromBasketHandler(IBasketRepository basketRepository)
     : ICommandHandler<RemoveItemFromBasketCommand, RemoveItemFromBasketResult>
 {
     public async Task<RemoveItemFromBasketResult> Handle(
         RemoveItemFromBasketCommand command,
         CancellationToken cancellationToken)
     {
-        var shoppingCart = await dbContext.ShoppingCarts
-            .Include(shoppingCart => shoppingCart.Items)
-            .SingleOrDefaultAsync(shoppingCart => shoppingCart.UserName == command.UserName, cancellationToken)
-            ?? throw new BasketNotFoundException(command.UserName);
+        var shoppingCart = await basketRepository.GetBasketAsync(command.UserName, false, cancellationToken);
         
         shoppingCart.RemoveItem(command.ProductId);
-        await dbContext.SaveChangesAsync(cancellationToken);
+        await basketRepository.SaveChangesAsync(cancellationToken);
 
         return new RemoveItemFromBasketResult(shoppingCart.Id);
     }
