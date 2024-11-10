@@ -1,6 +1,4 @@
 ﻿
-using Microsoft.EntityFrameworkCore.Infrastructure;
-
 namespace Basket.Data.Configurations;
 
 public class ShoppingCartItemCofiguraiton : IEntityTypeConfiguration<ShoppingCartItem>
