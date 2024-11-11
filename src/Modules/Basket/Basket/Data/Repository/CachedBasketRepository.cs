@@ -48,9 +48,15 @@ public class CachedBasketRepository(IBasketRepository basketRepository, IDistrib
         return true;
     }
 
-    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public async Task<int> SaveChangesAsync(string? userName = null, CancellationToken cancellationToken = default)
     {
-        //TODO: clear cache
-        return await basketRepository.SaveChangesAsync(cancellationToken);
+        var result = await basketRepository.SaveChangesAsync(userName, cancellationToken);
+
+        if (userName != null)
+        {
+            await cache.RemoveAsync(userName, cancellationToken);
+        }
+        
+        return result;
     }
 }

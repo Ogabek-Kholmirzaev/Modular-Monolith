@@ -15,7 +15,7 @@ public class RemoveItemFromBasketHandler(IBasketRepository basketRepository)
         var shoppingCart = await basketRepository.GetBasketAsync(command.UserName, false, cancellationToken);
         
         shoppingCart.RemoveItem(command.ProductId);
-        await basketRepository.SaveChangesAsync(cancellationToken);
+        await basketRepository.SaveChangesAsync(command.UserName, cancellationToken);
 
         return new RemoveItemFromBasketResult(shoppingCart.Id);
     }
