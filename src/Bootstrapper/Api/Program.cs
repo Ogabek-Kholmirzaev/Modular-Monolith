@@ -15,6 +15,9 @@ builder.Services
     .AddCatalogModule(builder.Configuration)
     .AddOrderingModule(builder.Configuration);
 
+builder.Services.AddStackExchangeRedisCache(options =>
+    options.Configuration = builder.Configuration.GetConnectionString("Redis"));
+
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();
