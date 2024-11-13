@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Basket.Basket.Models;
+﻿namespace Basket.Basket.Models;
 
 public class ShoppingCartItem : Entity<Guid>
 {

@@ -1,8 +1,3 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using Basket.Data.JsonConverters;
-using Microsoft.Extensions.Caching.Distributed;
-
 namespace Basket.Data.Repository;
 
 public class CachedBasketRepository(IBasketRepository basketRepository, IDistributedCache cache)
