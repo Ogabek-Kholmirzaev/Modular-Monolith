@@ -1,4 +1,6 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using Basket.Data.JsonConverters;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace Basket.Data.Repository;
@@ -13,6 +15,17 @@ public class CachedBasketRepository(IBasketRepository basketRepository, IDistrib
     {
         if (!asNoTracking)
         {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                Converters =
+                {
+                    new ShoppingCartConverter(),
+                    new ShoppingCartItemConverter()
+                }
+            };
+            
             return await basketRepository.GetBasketAsync(userName, asNoTracking, cancellationToken);
         }
 
