@@ -8,7 +8,7 @@ global using Catalog.Data.Seed;
 global using Shared.Data;
 global using Shared.Data.Seed;
 global using Catalog.Products.Dtos;
-global using Shared.CQRS;
+global using Shared.Contracts.CQRS;
 global using Mapster;
 global using Catalog.Products.Events;
 global using MediatR;
