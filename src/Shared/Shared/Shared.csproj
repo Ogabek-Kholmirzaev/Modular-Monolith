@@ -24,4 +24,8 @@
 	  <PackageReference Include="Scrutor" Version="5.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Shared.Contracts\Shared.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>
