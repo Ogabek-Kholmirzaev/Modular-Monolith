@@ -21,3 +21,4 @@ global using System.Text.Json;
 global using System.Text.Json.Serialization;
 global using Basket.Data.JsonConverters;
 global using Microsoft.Extensions.Caching.Distributed;
+global using Catalog.Contracts.Products.Features.GetProductById;
