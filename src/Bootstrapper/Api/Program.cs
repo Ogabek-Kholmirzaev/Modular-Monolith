@@ -18,6 +18,8 @@ builder.Services
 builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetConnectionString("Redis"));
 
+builder.Services.AddMassTransitWithAssemblies(catalogAssembly, basketAssembly);
+
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();
