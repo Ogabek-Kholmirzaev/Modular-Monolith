@@ -22,3 +22,6 @@ global using System.Text.Json.Serialization;
 global using Basket.Data.JsonConverters;
 global using Microsoft.Extensions.Caching.Distributed;
 global using Catalog.Contracts.Products.Features.GetProductById;
+global using MassTransit;
+global using Microsoft.Extensions.Logging;
+global using Shared.Messaging.Events;
