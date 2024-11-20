@@ -43,4 +43,13 @@ public class ShoppingCartItem : Entity<Guid>
         Price = price;
         ProductName = productName;
     }
+
+    public void Update(decimal price, string name)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
+        ArgumentException.ThrowIfNullOrEmpty(name);
+
+        Price = price;
+        ProductName = name;
+    }
 }
