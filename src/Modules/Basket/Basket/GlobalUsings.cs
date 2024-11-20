@@ -25,3 +25,4 @@ global using Catalog.Contracts.Products.Features.GetProductById;
 global using MassTransit;
 global using Microsoft.Extensions.Logging;
 global using Shared.Messaging.Events;
+global using Basket.Basket.Features.UpdateItemPriceInBasket;
