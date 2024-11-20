@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="Basket\Features\CheckoutBasket\" />
-    <Folder Include="Basket\Features\UpdateItemPriceInBasket\" />
   </ItemGroup>
 
 </Project>
