@@ -31,7 +31,7 @@ services:
   messagebus:
     container_name: messagebus
     hostname: ecommerce-mq
-    entrypoint:
+    environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
     restart: always
