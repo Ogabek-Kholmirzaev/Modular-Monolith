@@ -17,6 +17,7 @@ public class GetBasketEndpoint : ICarterModule
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound)
             .WithSummary("Get Basket")
-            .WithDescription("Get Basket");
+            .WithDescription("Get Basket")
+            .RequireAuthorization();
     }
 }

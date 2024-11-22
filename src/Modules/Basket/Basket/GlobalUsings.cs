@@ -26,3 +26,4 @@ global using MassTransit;
 global using Microsoft.Extensions.Logging;
 global using Shared.Messaging.Events;
 global using Basket.Basket.Features.UpdateItemPriceInBasket;
+global using System.Security.Claims;

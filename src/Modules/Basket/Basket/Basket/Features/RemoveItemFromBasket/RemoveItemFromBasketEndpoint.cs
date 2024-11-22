@@ -20,6 +20,7 @@ public class RemoveItemFromBasketEndpoint : ICarterModule
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound)
             .WithSummary("Remove Item From Basket")
-            .WithDescription("Remove Item From Basket");
+            .WithDescription("Remove Item From Basket")
+            .RequireAuthorization();
     }
 }
