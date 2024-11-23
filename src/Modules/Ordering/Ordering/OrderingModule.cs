@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ordering.Data;
+using Shared.Data;
+using Shared.Data.Interceptors;
 
 namespace Ordering;
 
@@ -10,6 +14,18 @@ public static class OrderingModule
     {
         //add services to DI container
 
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+
+        services.AddDbContext<OrderingDbContext>((serviceProvider, options) =>
+        {
+            var connectionString = configuration.GetConnectionString("Database")
+                ?? throw new ArgumentNullException("Database connection string is null");
+
+            options.UseNpgsql(connectionString);
+            options.AddInterceptors(serviceProvider.GetServices<ISaveChangesInterceptor>());
+        });
+        
         return services;
     }
 
@@ -17,6 +33,8 @@ public static class OrderingModule
     {
         //configure the http request pipeline
 
+        app.UseMigration<OrderingDbContext>();
+        
         return app;
     }
 }
