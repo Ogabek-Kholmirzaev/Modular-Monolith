@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Ordering.Data.Configurations;
 
 public class OrderConfiguration : IEntityTypeConfiguration<Order>
