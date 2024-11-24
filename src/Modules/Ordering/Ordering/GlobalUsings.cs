@@ -2,6 +2,7 @@
 
 global using System.Reflection;
 global using FluentValidation;
+global using Mapster;
 global using MediatR;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -15,3 +16,4 @@ global using Ordering.Orders.ValueObjects;
 global using Shared.Contracts.CQRS;
 global using Shared.DDD;
 global using Shared.Exceptions;
+global using Shared.Pagination;
