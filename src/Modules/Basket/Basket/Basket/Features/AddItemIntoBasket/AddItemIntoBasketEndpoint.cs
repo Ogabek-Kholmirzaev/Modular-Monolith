@@ -18,7 +18,7 @@ public class AddItemIntoBasketEndpoint : ICarterModule
 
                 return Results.Created($"/basket/{response.Id}", response);
             })
-            .Produces<AddItemIntoBasketResponse>(StatusCodes.Status200OK)
+            .Produces<AddItemIntoBasketResponse>(StatusCodes.Status201Created)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound)
             .WithSummary("Add Item Into Basket")

@@ -17,7 +17,7 @@ public class CreateOrderEndpoint : ICarterModule
             return Results.Created($"/orders/{response.Id}", response);
         })
         .WithName("CreateOrder")
-        .Produces<CreateOrderResponse>(StatusCodes.Status200OK)
+        .Produces<CreateOrderResponse>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Create Order")
         .WithDescription("Create Order");
