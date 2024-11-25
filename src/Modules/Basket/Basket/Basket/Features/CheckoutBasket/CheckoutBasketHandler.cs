@@ -13,23 +13,48 @@ public class CheckoutBasketCommandValidator : AbstractValidator<CheckoutBasketCo
     }
 }
 
-public class CheckoutBasketHandler(IBasketRepository basketRepository, IBus bus)
+public class CheckoutBasketHandler(BasketDbContext dbContext)
     : ICommandHandler<CheckoutBasketCommand, CheckoutBasketResult>
 {
     public async Task<CheckoutBasketResult> Handle(
         CheckoutBasketCommand command,
         CancellationToken cancellationToken)
     {
-        var basket = await basketRepository
-            .GetBasketAsync(command.BasketCheckout.UserName, true, cancellationToken);
+        await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
 
-        var eventMessage = command.BasketCheckout.Adapt<BasketCheckoutIntegrationEvent>();
+        try
+        {
+            var basket = await dbContext.ShoppingCarts
+                .Include(shoppingCart => shoppingCart.Items)
+                .SingleOrDefaultAsync(shoppingCart =>
+                    shoppingCart.UserName == command.BasketCheckout.UserName, cancellationToken)
+                ?? throw new BasketNotFoundException(command.BasketCheckout.UserName);
+            
+            var eventMessage = command.BasketCheckout.Adapt<BasketCheckoutIntegrationEvent>();
 
-        eventMessage.TotalPrice = basket.TotalPrice;
+            eventMessage.TotalPrice = basket.TotalPrice;
 
-        await bus.Publish(eventMessage, cancellationToken);
-        await basketRepository.DeleteBasketAsync(command.BasketCheckout.UserName, cancellationToken);
+            var outboxMessage = new OutboxMessage
+            {
+                Id = Guid.NewGuid(),
+                Type = typeof(BasketCheckoutIntegrationEvent).AssemblyQualifiedName!,
+                Content = JsonSerializer.Serialize(eventMessage),
+                OccuredOn = DateTime.UtcNow
+            };
 
-        return new CheckoutBasketResult(true);
+            dbContext.OutboxMessages.Add(outboxMessage);
+            dbContext.ShoppingCarts.Remove(basket);
+
+            await dbContext.SaveChangesAsync(cancellationToken);
+            await transaction.CommitAsync(cancellationToken);
+
+            return new CheckoutBasketResult(true);
+        }
+        catch
+        {
+            await transaction.RollbackAsync(cancellationToken);
+
+            return new CheckoutBasketResult(false);
+        }
     }
 }
